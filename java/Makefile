@@ -59,7 +59,7 @@ BENCH   =  ${JAR_DIR}/compositional-deucestm-${VERSION}.jar
 RT      =  ${JAR_DIR}/rt_instrumented.jar
 MYDEUCE	=  ${JAR_DIR}/${JAR_STM}
 
-all: compile instrument
+all: compile 
 
 instrument:
 	${JAVA} -cp ${AGENT} ${EXCLUDE} ${MAIN} ${JDK_RT} ${RT}
@@ -67,7 +67,7 @@ instrument:
 compile:
 	${ANT} 
 	${ANT} jarbench
-	${ANT} jardeuce 
+	# ${ANT} jardeuce
 
 compilev:
 	${ANT} -v

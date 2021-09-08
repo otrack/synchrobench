@@ -19,7 +19,8 @@ public class LockFreeQueueIntSet implements CompositionalIntSet {
 
 	private static final long serialVersionUID = 0001;
 	
-	private final ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<Integer>();
+	// private final ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<Integer>();
+	private final LockFreeFQueueSet<Integer> queue = new LockFreeFQueueSet<Integer>();
     /** The thread-private PRNG */
     final private static ThreadLocal<Random> s_random = new ThreadLocal<Random>() {
         @Override
@@ -55,7 +56,7 @@ public class LockFreeQueueIntSet implements CompositionalIntSet {
     }
 
     public boolean removeInt(int value) {
-    	return queue.remove(value);
+    	return queue.poll()!=null;
     }
 
 	public boolean removeAll(Collection<Integer> c) {

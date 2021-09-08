@@ -19,7 +19,8 @@ javaopt=-server
 ###
 
 stms="estm estmmvcc"
-syncs="sequential lockbased lockfree transactional"
+# syncs="sequential lockbased lockfree transactional"
+syncs="sequential"
 thread="1 2 4 8 16 32 64"
 size="16384 65536"
 
@@ -29,11 +30,11 @@ l="5000"
 warmup="0"
 snapshot="0"
 writeall="0"
-iterations="5"
+iterations="1"
 
 JVMARGS=-Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" 
 BOOTARGS=-Xbootclasspath/p:${dir}/lib/rt_instrumented.jar
-CP=${dir}/lib/compositional-deucestm-0.1.jar:${dir}/lib/mydeuce.jar:${dir}/bin
+CP=${dir}/bin
 MAINCLASS=contention.benchmark.Test
 
 if [ ! -d "${output}" ]; then
@@ -89,7 +90,8 @@ fi
 
 
 # sequential benchmark
-benchs="arrays.sequential.SequentialVector hashtables.sequential.SequentialHashIntSet linkedlists.sequential.SequentialLinkedListIntSet linkedlists.sequential.SequentialLinkedListSortedSet queues.sequential.SequentialQueueIntSet skiplists.sequential.SequentialSkipListIntSet trees.sequential.SequentialRBTreeIntSet"
+# benchs="arrays.sequential.SequentialVector hashtables.sequential.SequentialHashIntSet linkedlists.sequential.SequentialLinkedListIntSet linkedlists.sequential.SequentialLinkedListSortedSet queues.sequential.SequentialQueueIntSet skiplists.sequential.SequentialSkipListIntSet trees.sequential.SequentialRBTreeIntSet"
+benchs="queues.sequential.SequentialQueueIntSet"
 if [[ "${syncs}" =~ "sequential" ]]; then
 for bench in ${benchs}; do
  for write in ${writes}; do
@@ -97,7 +99,7 @@ for bench in ${benchs}; do
 	r=`echo "2*${i}" | bc`
 	out=${output}/log/${bench}-sequential-i${i}-u${write}-t1.log
 	for (( j=1; j<=${iterations}; j++ )); do
-	    echo "${java} ${javaopt} -cp ${CP} ${MAINCLASS} -W ${warmup} -u ${write} -a ${writeall} -s ${snapshot} -l ${l} -t 1 -i ${i} -r ${r} -b ${BENCHPATH}.${bench}"
+	    echo "${java} ${javaopt} -cp ${CP} ${MAINCLASS} -W ${warmup} -u ${write} -a ${writeall} -s ${snapshot} -d ${l} -t 1 -i ${i} -r ${r} -b ${bench}"
 	    ${java} ${javaopt} -cp ${CP} ${MAINCLASS} -W ${warmup} -u ${write} -a ${writeall} -s ${snapshot} -d ${l} -t 1 -i ${i} -r ${r} -b ${bench} 2>&1 >> ${out}
 	done
     done

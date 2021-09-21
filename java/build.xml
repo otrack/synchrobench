@@ -28,7 +28,7 @@
 	</target>
 
 	<target name="compileJava8" depends="version" if="isJava8">
-		<javac debug="yes" srcdir="${src}" destdir="${bin}" classpath="${deuce}:lib/junit.jar">
+		<javac debug="yes" srcdir="${src}" destdir="${bin}" classpath="${deuce}:lib/junit.jar:lib/dobj-1.0.jar">
 			<exclude name="" />
 		</javac>
 	</target>

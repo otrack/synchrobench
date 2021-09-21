@@ -2,7 +2,7 @@ package queues.lockfree;
 
 import java.util.Collection;
 import java.util.Random;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import eu.cloudbutton.dobj.types.DegradableQueue;
 
 import contention.abstractions.CompositionalIntSet;
 import contention.benchmark.Parameters;
@@ -15,12 +15,11 @@ import contention.benchmark.Parameters;
  * @author Vincent Gramoli
  *
  */
-public class LockFreeQueueIntSet implements CompositionalIntSet {
+public class LockFreeDQueueIntSet implements CompositionalIntSet {
 
-	private static final long serialVersionUID = 0001;
+    private static final long serialVersionUID = 0001;
 	
-    private final ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<Integer>();
-    // private final LockFreeFQueueSet<Integer> queue = new LockFreeFQueueSet<Integer>();
+    private final DegradableQueue<Integer> queue = new DegradableQueue<Integer>();
     /** The thread-private PRNG */
     final private static ThreadLocal<Random> s_random = new ThreadLocal<Random>() {
         @Override

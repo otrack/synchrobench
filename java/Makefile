@@ -65,9 +65,8 @@ instrument:
 	${JAVA} -cp ${AGENT} ${EXCLUDE} ${MAIN} ${JDK_RT} ${RT}
 
 compile:
+	cp ~/.m2/repository/eu/cloudbutton/dobj/1.0/dobj-1.0.jar ${JAR_DIR}/
 	${ANT} 
-	${ANT} jarbench
-	# ${ANT} jardeuce
 
 compilev:
 	${ANT} -v
